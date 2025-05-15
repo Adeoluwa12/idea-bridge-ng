@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Idea Evaluation - IdeaBridge</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; }
+    button { padding: 0.7rem 1.5rem; }
+    #results pre { background: #f0f0f0; padding: 1rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Submit Your Innovation Idea</h1>
+  <form onsubmit="event.preventDefault(); submitIdea();">
+    <input id="title" placeholder="Title" required />
+    <textarea id="problem_statement" placeholder="Problem Statement" required></textarea>
+    <textarea id="solution_overview" placeholder="Solution Overview" required></textarea>
+    <textarea id="target_market" placeholder="Target Market" required></textarea>
+    <textarea id="feasibility" placeholder="Feasibility Details" required></textarea>
+    <textarea id="innovation_summary" placeholder="Innovation Summary" required></textarea>
+    <textarea id="sdg_linkage" placeholder="SDG Linkage (e.g., SDG 3, SDG 7)" required></textarea>
+    <button type="submit">Evaluate</button>
+  </form>
+  <div id="results"></div>
+
+  <script>
+    async function submitIdea() {
+      const data = {
+        title: document.getElementById('title').value,
+        problem_statement: document.getElementById('problem_statement').value,
+        solution_overview: document.getElementById('solution_overview').value,
+        target_market: document.getElementById('target_market').value,
+        feasibility: document.getElementById('feasibility').value,
+        innovation_summary: document.getElementById('innovation_summary').value,
+        sdg_linkage: document.getElementById('sdg_linkage').value,
+      };
+
+      const response = await fetch('/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById('results').innerHTML = `<h3>Evaluation Result:</h3><pre>${JSON.stringify(result, null, 2)}</pre>`;
+    }
+  </script>
+</body>
+</html>
