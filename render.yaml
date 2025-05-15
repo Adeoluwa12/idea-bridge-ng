@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: idea-evaluator
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: OPENROUTER_API_KEY
+        value: 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
