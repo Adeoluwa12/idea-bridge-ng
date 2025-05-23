@@ -152,7 +152,7 @@ SDG Linkage: {idea['sdg_linkage']}
 
 @app.route('/')
 def index():
-    return "Welcome to the Innovation Evaluation API. POST to /evaluate."
+    return render_template('index.html')
 
 @app.route('/evaluate', methods=['POST'])
 def evaluate():
